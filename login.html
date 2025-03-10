@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="loginApp" ng-controller="loginPage">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="https://smartcpho.moph.go.th/favicon.ico" />
+    <title>
+        ระบบพิสูจน์ตัวตนก่อนใช้งานอินเตอร์เน็ต/สำนักงานสาธารณสุขจังหวัดชัยภูมิ
+    </title>
+    <meta name="description" content="User login page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="refresh" content="45">
+    <link rel="stylesheet" href="https://smartcpho.moph.go.th/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://smartcpho.moph.go.th/assets/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://smartcpho.moph.go.th/assets/css/ace.min.css" />
+    <link rel="stylesheet" href="https://smartcpho.moph.go.th/assets/css/ace-rtl.min.css" />
+    <style>
+        .responsive-heading {
+            font-size: 18px;
+        }
+
+        @media (min-width: 768px) {
+            .responsive-heading {
+                font-size: 24px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .responsive-heading {
+                font-size: 30px;
+            }
+        }
+
+        .company-heading {
+            font-size: 14px;
+        }
+
+        @media (min-width: 768px) {
+            .company-heading {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body class="login-layout light-login">
+    <div class="main-container">
+        <div class="main-content">
+            <div class="row">
+                <div class="widget-box-overlay" style="display: none;">
+                    <i class="ace-icon loading-xx loading-icon fa fa-spinner fa-pulse fa-3x fa-fw white"
+                        style="top: 50%;"></i>
+                </div>
+                <div class="space-16"></div>
+                <div class="col-sm-10 col-sm-offset-1 center">
+                    <img alt="สำนักงานสาธารณสุขจังหวัดชัยภูมิ"
+                        src="https://smartcpho.moph.go.th/assets/images/moph-logo.gif" style="width: 80px;">
+                    <h2 class="center responsive-heading">
+                        <i class="ace-icon fa fa-user-circle"></i>
+                        <span class="red">
+                            ระบบพิสูจน์ตัวตน
+                        </span>
+                        <span class="green">
+                            ก่อนใช้งานอินเตอร์เน็ต
+                        </span>
+                    </h2>
+                    <div class="login-container">
+                        <div class="center">
+                            <h4 class="blue company-heading" id="id-company-text">
+                                สำนักงานสาธารณสุขจังหวัดชัยภูมิ
+                            </h4>
+                            <h4 class="blue company-heading" id="id-company-text">
+                                &copy; Chaiyaphum Provincial Health Office
+                            </h4>
+                        </div>
+                        <div class="space-6"></div>
+                        <div class="position-relative">
+                            <div id="login-box" class="login-box visible widget-box no-border">
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <h4 class="header blue lighter bigger">
+                                            <i class="ace-icon fa fa-sign-in green"></i>
+                                            กรุณากรอกข้อมูลเพื่อพิสูจน์ตัวตน
+                                        </h4>
+                                        <div class="space-6"></div>
+                                        <form id="login-form" method="post" action="%%AUTH_POST_URL%%" novalidate>
+                                            <fieldset>
+                                                <input type="hidden" id="magic" name="%%MAGICID%%" value="%%MAGICVAL%%">
+                                                <input type="hidden" name="%%REDIRID%%" value="%%PROTURI%%" />
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" id="username" name="%%USERNAMEID%%"
+                                                            class="form-control"
+                                                            placeholder="ป้อนบัญชีผู้ใช้ / Username" required />
+                                                        <i class="ace-icon fa fa-user"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="password" id="password" name="%%PASSWORDID%%"
+                                                            class="form-control" placeholder="ป้อนรหัสผ่าน / Password"
+                                                            required />
+                                                        <i class="ace-icon fa fa-eye-slash"
+                                                            style="cursor: pointer;"></i>
+                                                    </span>
+                                                </label>
+                                                <div class="space"></div>
+                                                <div class="clearfix">
+                                                    <label class="inline pull-left">
+                                                        <input type="checkbox" class="ace" />
+                                                        <span class="lbl"> จดจำฉัน</span>
+                                                    </label>
+                                                    <button type="submit"
+                                                        class="width-35 pull-right btn btn-sm btn-primary">
+                                                        <i class="ace-icon fa fa-key"></i>
+                                                        <span class="bigger-110">เข้าสู่ระบบ</span>
+                                                    </button>
+                                                </div>
+                                                <hr style="line-height: 10px; border-top: 1px solid #ccc;">
+                                                <div class="clearfix">
+                                                    <button type="button" onclick="showMorPromLogin()"
+                                                        class="width-100 pull-right btn btn-sm btn-success">
+                                                        <img width="20px"
+                                                            src="https://smartcpho.moph.go.th/assets/images/mohprom.png"
+                                                            alt="Login MorProm">
+                                                        <span style="color: black;">
+                                                            พิสูจน์ตัวตนด้วย Line OA หมอพร้อม
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <p></p>
+                                                <div class="clearfix">
+                                                    <button type="button" onclick="goToThaID()"
+                                                        class="width-100 pull-right btn btn-sm btn-default">
+                                                        <img width="20px"
+                                                            src="https://smartcpho.moph.go.th/assets/images/ThaID.png"
+                                                            alt="Login ThaID">
+                                                        <span style="color: black;">
+                                                            พิสูจน์ตัวตนด้วย App ThaID
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="space-4">
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                    <div class="toolbar clearfix">
+                                        <div>
+                                            <a href="https://smartcpho.moph.go.th/forgot" class="forgot-password-link">
+                                                <i class="ace-icon fa fa-arrow-left"></i>
+                                                ฉันลืมรหัสผ่าน
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="https://smartcpho.moph.go.th/signup" class="user-signup-link">
+                                                ลงทะเบียนใหม่
+                                                <i class="ace-icon fa fa-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://smartcpho.moph.go.th/assets/js/jquery-2.1.4.min.js"></script>
+    <script src="https://smartcpho.moph.go.th/assets/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        const cssjs = 'https://smartcpho.moph.go.th';
+        const aidUrl = 'https://apicpho.moph.go.th/authen';
+        const thaiDRedirectUri = `https://imauth.bora.dopa.go.th/api/v2/oauth2/auth/`;
+        const thaiDClientId = 'OHhQNnAwbWtCWDZQbm1KRkZ0UWlBR1ZhV3FvTXZHaTc';
+        const thaiDScopes = 'pid given_name middle_name family_name birthdate address gender';
+        function goToThaID() {
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const searchParams = Object.fromEntries(urlSearchParams.entries());
+            const magic = document.getElementById('magic').value;
+            const state = magic || Object.keys(searchParams)[0];
+            const clientId = thaiDClientId;
+            const scope = thaiDScopes;
+            const redirectUri = `${aidUrl}/callback`;
+            const thaiDBaseUrl = `${thaiDRedirectUri}`;
+            const authParams = new URLSearchParams({
+                response_type: 'code',
+                client_id: clientId,
+                redirect_uri: redirectUri,
+                scope: scope,
+                state: state
+            });
+            location.href = `${thaiDBaseUrl}?${authParams.toString()}`;
+        }
+        function showMorPromLogin() {
+            $('form').hide();
+            sessionStorage.setItem('currentForm', 'morprom');
+            sessionStorage.removeItem('morpromState');
+            sessionStorage.removeItem('nationalId');
+            const morPromForm = `
+                <form id="morprom-form" method="post" action="%%AUTH_POST_URL%%" novalidate>
+                    <fieldset>
+                        <h4 class="header blue lighter bigger" style="text-align: center;">
+                            <div style="margin-bottom: 10px;">
+                                <img src="${cssjs}/assets/images/mohprom.png" width="40px">
+                            </div>
+                            พิสูจน์ตัวตนด้วย Line OA หมอพร้อม
+                        </h4>
+                        <input type="hidden" name="%%MAGICID%%" value="%%MAGICVAL%%">
+                        <input type="hidden" name="%%REDIRID%%" value="%%PROTURI%%" />
+                        <div id="national-id-section">
+                            <label class="block clearfix">
+                                <span class="block input-icon input-icon-right">
+                                    <input type="text" id="national_id" name="national_id" class="form-control" 
+                                        placeholder="กรุณากรอกเลขบัตรประชาชน 13 หลัก" 
+                                        maxlength="13" 
+                                        pattern="[0-9]{13}"
+                                        required />
+                                    <i class="ace-icon fa fa-id-card"></i>
+                                </span>
+                                <span id="national-id-error" class="help-block" style="color: #f2a696; display: none;"></span>
+                            </label>
+                            <div class="space"></div>
+                            <div class="clearfix">
+                                <button type="button" onclick="showOTPInput()" class="width-100 pull-right btn btn-sm btn-success">
+                                    <i class="ace-icon fa fa-mobile"></i>
+                                    <span class="bigger-110">ส่ง OTP</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="otp-section" style="display: none;">
+                            <input type="hidden" id="stored_national_id" name="stored_national_id" />
+                            <input type="hidden" id="idcard" name="%%USERNAMEID%%" />
+                            <input type="hidden" id="combined_otp" name="%%PASSWORDID%%" />
+                            <div class="text-center" style="margin-bottom: 15px;">
+                                <p>กรุณากรอกรหัส OTP 6 หลัก</p>
+                                <p style="color: #666;">REF: <span id="ref-number"></span></p>
+                                <p style="color: #666;">รหัส OTP จะหมดอายุใน: <span id="countdown-timer"></span></p>
+                                <p id="otp-error" class="help-block" style="color: #f2a696; display: none;"></p>
+                            </div>
+                            <div class="text-center" style="margin-bottom: 20px;">
+                                <div style="display: inline-flex; gap: 8px; justify-content: center;">
+                                    <input type="text" class="otp-input" maxlength="1" style="width: 40px; height: 40px; text-align: center; font-size: 20px;" />
+                                    <input type="text" class="otp-input" maxlength="1" style="width: 40px; height: 40px; text-align: center; font-size: 20px;" />
+                                    <input type="text" class="otp-input" maxlength="1" style="width: 40px; height: 40px; text-align: center; font-size: 20px;" />
+                                    <input type="text" class="otp-input" maxlength="1" style="width: 40px; height: 40px; text-align: center; font-size: 20px;" />
+                                    <input type="text" class="otp-input" maxlength="1" style="width: 40px; height: 40px; text-align: center; font-size: 20px;" />
+                                    <input type="text" class="otp-input" maxlength="1" style="width: 40px; height: 40px; text-align: center; font-size: 20px;" />
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <button type="submit" class="width-100 pull-right btn btn-sm btn-success" id="submit-otp" disabled>
+                                    <i class="ace-icon fa fa-check"></i>
+                                    <span class="bigger-110">ยืนยัน OTP</span>
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            `;
+            $('form').after(morPromForm);
+            const $forgotLink = $('.forgot-password-link');
+            const $signupLink = $('.user-signup-link').parent();
+            const $toolbar = $('.toolbar');
+            $signupLink.hide();
+            $forgotLink.parent().css({
+                'float': 'none',
+                'text-align': 'center',
+                'width': '100%'
+            });
+            $forgotLink.on('click', function (e) {
+                e.preventDefault();
+                showOriginalForm();
+            });
+            $forgotLink.attr('href', 'javascript:void(0)');
+            $forgotLink.html('<i class="ace-icon fa fa-arrow-left"></i> กลับหน้าพิสูจน์ตัวตนด้วย Username/Password');
+            $('#national_id').on('input', function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                $('#national-id-error').hide();
+                $(this).closest('.block').removeClass('has-error');
+            });
+            $('.otp-input').on('input', function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                if (this.value.length === 1) {
+                    $(this).next('.otp-input').focus();
+                }
+                let allEmpty = true;
+                $('.otp-input').each(function () {
+                    if ($(this).val()) {
+                        allEmpty = false;
+                        return false;
+                    }
+                });
+                if (allEmpty) {
+                    $('.otp-input').closest('div').removeClass('has-error');
+                    $('#otp-error').hide();
+                }
+            });
+            $('.otp-input:first').on('paste', function (e) {
+                e.preventDefault();
+                const pastedData = (e.originalEvent.clipboardData || window.clipboardData).getData('text');
+                const numbers = pastedData.replace(/[^0-9]/g, '').split('').slice(0, 6);
+                if (numbers.length === 6) {
+                    $('.otp-input').each(function (index) {
+                        $(this).val(numbers[index]);
+                    });
+                    $('#combined_otp').val(numbers.join(''));
+                    $('.otp-input:last').focus();
+                    verifyOTP();
+                }
+            });
+            $('.otp-input').on('keydown', function (e) {
+                if (e.key === 'Backspace' && this.value.length === 0) {
+                    $(this).prev('.otp-input').focus();
+                }
+            });
+            $('.otp-input').on('input', function () {
+                let allFilled = true;
+                let otp = '';
+                $('.otp-input').each(function () {
+                    if (!$(this).val()) {
+                        allFilled = false;
+                        return false;
+                    }
+                    otp += $(this).val();
+                });
+                if (allFilled) {
+                    $('#combined_otp').val(otp);
+                    verifyOTP();
+                }
+            });
+            $('#morprom-form').on('submit', function (e) {
+                if ($('#otp-section').is(':visible')) {
+                    let otp = '';
+                    $('.otp-input').each(function () {
+                        otp += $(this).val();
+                    });
+                    if (otp.length !== 6) {
+                        e.preventDefault();
+                        alert('กรุณากรอกรหัส OTP ให้ครบ 6 หลัก');
+                        return false;
+                    }
+                    $('#combined_otp').val(otp);
+                }
+            });
+            $('#national_id').focus();
+        }
+        function showOriginalForm() {
+            $('#morprom-form').remove();
+            sessionStorage.removeItem('currentForm');
+            sessionStorage.removeItem('morpromState');
+            sessionStorage.removeItem('nationalId');
+            sessionStorage.removeItem('ref');
+            const countdownTimer = sessionStorage.getItem('countdownTimerId');
+            clearInterval(countdownTimer);
+            sessionStorage.removeItem('timeLeft');
+            sessionStorage.removeItem('countdownTimerId');
+            $('form').show();
+            const $forgotLink = $('.forgot-password-link');
+            const $signupLink = $('.user-signup-link').parent();
+            $signupLink.show();
+            $forgotLink.parent().css({
+                'float': '',
+                'text-align': '',
+                'width': ''
+            });
+            $forgotLink.attr('href', `${cssjs}/forgot`);
+            $forgotLink.removeAttr('onclick');
+            $forgotLink.html('<i class="ace-icon fa fa-arrow-left"></i> ฉันลืมรหัสผ่าน');
+            $forgotLink.off('click');
+            $('#username').focus();
+        }
+        function showInputError(message) {
+            $('#national_id').closest('.block').addClass('has-error');
+            $('#national-id-error').text(message).show();
+        }
+        function clearInputError() {
+            $('#national_id').closest('.block').removeClass('has-error');
+            $('#national-id-error').hide();
+        }
+        function validateThaiID(id) {
+            if (!/^[0-9]{13}$/.test(id)) return false;
+            let sum = 0;
+            for (let i = 0; i < 12; i++) {
+                sum += parseInt(id.charAt(i)) * (13 - i);
+            }
+            let checkDigit = (11 - (sum % 11)) % 10;
+            return checkDigit === parseInt(id.charAt(12));
+        }
+        function showOTPInput() {
+            const ref = sessionStorage.getItem('ref');
+            const nationalId = $('#national_id').val();
+            clearInputError();
+            if (nationalId.length !== 13) {
+                showInputError('กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก');
+                Swal.fire({
+                    title: 'แจ้งเตือน',
+                    text: 'กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก',
+                    icon: 'warning',
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#3085d6'
+                });
+                return;
+            }
+            if (!validateThaiID(nationalId)) {
+                showInputError('เลขบัตรประชาชนไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง');
+                Swal.fire({
+                    title: 'แจ้งเตือน',
+                    text: 'เลขบัตรประชาชนไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง',
+                    icon: 'error',
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#3085d6'
+                });
+                return;
+            }
+            if (ref) {
+                sessionStorage.setItem('morpromState', 'otp');
+                sessionStorage.setItem('nationalId', nationalId);
+                sessionStorage.setItem('ref', ref);
+                $('#stored_national_id').val(nationalId);
+                $('#national-id-section').hide();
+                $('#otp-section').show();
+                $('.otp-input:first').focus();
+                $('#ref-number').text(ref);
+                startCountdown();
+            } else {
+                $('.widget-box-overlay').show();
+                $.ajax({
+                    url: `${aidUrl}/mohprom/otp`,
+                    type: 'POST',
+                    data: { pid: nationalId },
+                    success: function (res) {
+                        $('.widget-box-overlay').hide();
+                        if (!res.ok) {
+                            Swal.fire({
+                                title: 'แจ้งเตือน',
+                                text: 'เลขบัตรประชาชนไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง',
+                                icon: 'error',
+                                confirmButtonText: 'ตกลง',
+                            });
+                            return;
+                        }
+                        sessionStorage.setItem('timeLeft', 10 * 60);
+                        sessionStorage.setItem('morpromState', 'otp');
+                        sessionStorage.setItem('nationalId', nationalId);
+                        sessionStorage.setItem('ref', res.ref);
+                        $('#stored_national_id').val(nationalId);
+                        $('#national-id-section').hide();
+                        $('#otp-section').show();
+                        $('.otp-input:first').focus();
+                        $('#ref-number').text(res.ref);
+                        startCountdown();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                        $('.widget-box-overlay').hide();
+                        Swal.fire({
+                            title: 'แจ้งเตือน',
+                            text: 'เลขบัตรประชาชนไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง',
+                            icon: 'error',
+                            confirmButtonText: 'ตกลง',
+                        });
+                    }
+                });
+            }
+        }
+        function startCountdown() {
+            let timeLeft = sessionStorage.getItem('timeLeft') ? sessionStorage.getItem('timeLeft') : 10 * 60; // 10 minutes in seconds
+            const countdownTimer = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                $('#countdown-timer').text(display);
+                if (timeLeft <= 0) {
+                    clearInterval(countdownTimer);
+                    Swal.fire({
+                        title: 'แจ้งเตือน',
+                        text: 'รหัส OTP หมดอายุ กรุณาขอรหัสใหม่',
+                        icon: 'warning',
+                        confirmButtonText: 'ตกลง',
+                    }).then(() => {
+                        $('#national-id-section').show();
+                        $('#otp-section').hide();
+                        sessionStorage.removeItem('ref');
+                        sessionStorage.removeItem('timeLeft');
+                    });
+                }
+                timeLeft--;
+                sessionStorage.setItem('timeLeft', timeLeft);
+            }, 1000);
+            sessionStorage.setItem('countdownTimerId', countdownTimer);
+        }
+        function verifyOTP() {
+            const pid = sessionStorage.getItem('nationalId');
+            const ref = sessionStorage.getItem('ref');
+            const otp = $('#combined_otp').val();
+            if (otp.length !== 6) {
+                Swal.fire({
+                    title: 'แจ้งเตือน',
+                    text: 'กรุณากรอกรหัส OTP ให้ครบ 6 หลัก',
+                    icon: 'warning',
+                    confirmButtonText: 'ตกลง',
+                });
+                return;
+            }
+            $('.otp-input').closest('div').addClass('has-error');
+            $('#otp-error').text('กำลังตรวจสอบ OTP...').show();
+            $('.widget-box-overlay').show();
+            $.ajax({
+                url: `${aidUrl}/mohprom/otp/verify`,
+                type: 'POST',
+                data: { pid: pid, ref: ref, otp: otp },
+                success: function (res) {
+                    $('.widget-box-overlay').hide();
+                    if (res.ok) {
+                        $('.otp-input').closest('div').removeClass('has-error');
+                        $('#otp-error').hide();
+                        $('#submit-otp').prop('disabled', false);
+                        $('#idcard').val(res.pid);
+                        if (otp.length === 6 && res.ok) {
+                            $('.widget-box-overlay').show();
+                            $('#morprom-form').submit();
+                        }
+                    } else {
+                        $('.otp-input').closest('div').addClass('has-error');
+                        $('#otp-error').text('รหัส OTP ไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง').show();
+                        Swal.fire({
+                            title: 'แจ้งเตือน',
+                            text: 'รหัส OTP ไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง',
+                            icon: 'error',
+                            confirmButtonText: 'ตกลง',
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    $('.widget-box-overlay').hide();
+                    $('.otp-input').closest('div').addClass('has-error');
+                    $('#otp-error').text('เกิดข้อผิดพลาดในการตรวจสอบ OTP กรุณาลองใหม่อีกครั้ง').show();
+                    Swal.fire({
+                        title: 'แจ้งเตือน',
+                        text: 'เกิดข้อผิดพลาดในการตรวจสอบ OTP กรุณาลองใหม่อีกครั้ง',
+                        icon: 'error',
+                        confirmButtonText: 'ตกลง',
+                    });
+                }
+            });
+        }
+        jQuery(function ($) {
+            $('.widget-box-overlay').hide();
+            const currentForm = sessionStorage.getItem('currentForm');
+            const morpromState = sessionStorage.getItem('morpromState');
+            const savedNationalId = sessionStorage.getItem('nationalId');
+            if (currentForm === 'morprom') {
+                showMorPromLogin();
+                if (morpromState === 'otp' && savedNationalId) {
+                    $('#national_id').val(savedNationalId);
+                    showOTPInput();
+                }
+            } else {
+                $('#username').focus();
+            }
+            $('form').on('submit', function () {
+                $('.widget-box-overlay').show();
+                return true;
+            });
+            $('.fa-eye-slash').click(function () {
+                let passwordInput = $('#password');
+                if (passwordInput.attr('type') === 'password') {
+                    passwordInput.attr('type', 'text');
+                    $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+                } else {
+                    passwordInput.attr('type', 'password');
+                    $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
